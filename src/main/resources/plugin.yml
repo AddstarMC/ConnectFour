@@ -1,0 +1,54 @@
+name: ${project.artifactId}
+version: ${plugin.version}
+description: ${project.description}
+author: Dragon252525
+website:  http://superstesconstructum.ch/
+depend: [Monolith]
+softdepend: [Vault]
+
+main: ch.dragon252525.connectFour.ConnectFour
+
+commands:
+  cfour:
+    description: ConnectFour command
+    aliases: [c4, connectfour]
+    usage: /<command> <arguments>
+
+permissions:
+  cfour.admin.*:
+    children:
+      cfour.admin.reload: true
+      cfour.admin.lang: true
+      cfour.admin.clean: true
+      cfour.admin.create: true
+      cfour.admin.stop: true
+      cfour.admin.disable: true
+      cfour.user.*: true
+  cfour.user.*:
+    children:
+      cfour.user.play: true
+      cfour.user.help: true
+      cfour.user.tp: true
+      cfour.user.stats: true
+      cfour.user.list: true
+  cfour.admin.reload:
+    children:
+      cfour.admin: true
+  cfour.admin.lang:
+    children:
+      cfour.admin: true
+  cfour.admin.clean:
+    children:
+      cfour.admin: true
+  cfour.admin.create:
+    children:
+      cfour.admin: true
+  cfour.admin.stop:
+    children:
+      cfour.admin: true
+  cfour.admin.disable:
+    children:
+      cfour.admin: true
+  cfour.admin:
+    children:
+      cfour.user.*: true
