@@ -12,6 +12,8 @@
         <build.number />
         <plugin.version>${project.version}-${build.number}</plugin.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <spigot.version>1.12.2-R0.1-SNAPSHOT</spigot.version>
+        <monolith.version>1.4.7-SNAPSHOT</monolith.version>
     </properties>
     <scm>
         <connection>scm:git:git@github.com:AddstarMC/ConnectFour.git</connection>
@@ -130,13 +132,13 @@
     <dependency>
         <groupId>org.spigotmc</groupId>
         <artifactId>spigot-api</artifactId>
-        <version>1.11-R0.1-SNAPSHOT</version>
+        <version>${spigot.version}</version>
         <scope>provided</scope>
     </dependency>
     <dependency>
         <groupId>au.com.addstar</groupId>
         <artifactId>Monolith</artifactId>
-        <version>1.4.4-SNAPSHOT</version>
+        <version>${monolith.version}</version>
     </dependency>
 </dependencies>
     <repositories>

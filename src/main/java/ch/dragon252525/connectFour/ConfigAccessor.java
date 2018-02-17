@@ -3,6 +3,7 @@ package ch.dragon252525.connectFour;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.logging.Level;
 
 import org.bukkit.configuration.file.FileConfiguration;
@@ -37,7 +38,8 @@ class ConfigAccessor
         InputStream defConfigStream = this.plugin.getResource(this.fileName);
         if (defConfigStream != null)
         {
-            YamlConfiguration defConfig = YamlConfiguration.loadConfiguration(defConfigStream);
+            InputStreamReader reader = new InputStreamReader(defConfigStream);
+            YamlConfiguration defConfig = YamlConfiguration.loadConfiguration(reader);
             this.fileConfiguration.setDefaults(defConfig);
         }
     }

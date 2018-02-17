@@ -8,6 +8,7 @@ import au.com.addstar.monolith.lookup.MaterialDefinition;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.SpawnEggMeta;
 
 /**
  * Created for the Ark: Survival Evolved.
@@ -74,10 +75,10 @@ public class Utilities {
                     throw new IllegalArgumentException("Amount value cannot be less than 0");
 
         ItemStack item = def.asItemStack(amount);
-        if (def.getMaterial() == Material.MONSTER_EGG && edef != null){
-            MonoSpawnEgg egg = new MonoSpawnEgg(item);
-            egg.setMonoSpawnedType(edef.getType());
-            item = egg.getItem();
+        if(item.getItemMeta() instanceof SpawnEggMeta){
+            if(edef != null) {
+                ((SpawnEggMeta) item.getItemMeta()).setSpawnedType(edef.getType());
+            }
         }
         return item;
     }
@@ -96,7 +97,7 @@ public class Utilities {
             short id = Short.parseShort(name);
             mat = Material.getMaterial(id);
         }
-        catch(NumberFormatException e)
+        catch(NumberFormatException ignored)
         {
         }
 

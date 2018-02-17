@@ -9,6 +9,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.SignChangeEvent;
+import org.bukkit.event.entity.EntityPickupItemEvent;
 import org.bukkit.event.player.*;
 import org.bukkit.event.Listener;
 
@@ -53,14 +54,14 @@ public class PlayerEvents implements Listener{
     }
 
     @EventHandler(priority=EventPriority.LOWEST)
-    public void onPickUpItem(PlayerPickupItemEvent event)
+    public void onPickUpItem(EntityPickupItemEvent event)
     {
-        Player pe = event.getPlayer();
-        if ((instance.gameStarted != null) &&
-                (instance.playerIsInGame.containsKey(pe.getName().toLowerCase())))
-        {
-            event.setCancelled(true);
-            return;
+        if(event.getEntity() instanceof Player) {
+            Player pe = (Player) event.getEntity();
+            if ((instance.gameStarted != null) &&
+                    (instance.playerIsInGame.containsKey(pe.getName().toLowerCase()))) {
+                event.setCancelled(true);
+            }
         }
     }
 

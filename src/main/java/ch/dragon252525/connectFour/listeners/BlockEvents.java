@@ -14,6 +14,7 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.event.Listener;
+import org.bukkit.material.MaterialData;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -186,9 +187,9 @@ public class BlockEvents implements Listener {
                     int amount = instance.playersBlocks.get(pe.getName().toLowerCase());
                     amount--;
                     if (amount == 0) {
-                        pe.getInventory().setItemInHand(new ItemStack(0));
+                        pe.getInventory().setItemInMainHand(new ItemStack(Material.AIR));
                     } else {
-                        pe.getInventory().getItemInHand().setAmount(amount);
+                        pe.getInventory().getItemInMainHand().setAmount(amount);
                     }
                     pe.updateInventory();
                     startPlaceScheduler(game);
@@ -311,12 +312,10 @@ public class BlockEvents implements Listener {
                 int bX = b.getLocation().getBlockX();
                 int bZ = b.getLocation().getBlockZ();
                 int bY = b.getLocation().getBlockY();
-                if ((b.getWorld().getName().equalsIgnoreCase(world)) &&
+                return (b.getWorld().getName().equalsIgnoreCase(world)) &&
                         (bY <= Y) && (bY >= Y - 7) &&
                         (bX == X) &&
-                        (bZ >= kZ) && (bZ <= gZ)) {
-                    return true;
-                }
+                        (bZ >= kZ) && (bZ <= gZ);
             } else if (ukZ == ugZ) {
                 int kX = map.get("kX");
                 int gX = map.get("gX");
@@ -325,12 +324,10 @@ public class BlockEvents implements Listener {
                 int bX = b.getLocation().getBlockX();
                 int bZ = b.getLocation().getBlockZ();
                 int bY = b.getLocation().getBlockY();
-                if ((b.getWorld().getName().equalsIgnoreCase(world)) &&
+                return (b.getWorld().getName().equalsIgnoreCase(world)) &&
                         (bY <= Y) && (bY >= Y - 7) &&
                         (bZ == Z) &&
-                        (bX >= kX) && (bX <= gX)) {
-                    return true;
-                }
+                        (bX >= kX) && (bX <= gX);
             }
         }
         return false;
@@ -483,7 +480,8 @@ public class BlockEvents implements Listener {
         Material type = b.getType();
         b.setTypeId(0);
         String world = instance.getConfig().getString("games." + game + ".spawn.world");
-        instance.getServer().getWorld(world).spawnFallingBlock(getLocPos(game, pos), type, (byte) 0);
+        MaterialData mdata = new MaterialData(type);
+        instance.getServer().getWorld(world).spawnFallingBlock(getLocPos(game, pos), mdata);
     }
 
     private Location getLocPos(String game, int pos) {
